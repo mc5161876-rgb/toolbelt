@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-label="Toolbelt">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="5" x2="57" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#20252E"/>
+      <stop offset="1" stop-color="#0C0F15"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="15" y1="13" x2="49" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4DE0C1"/>
+      <stop offset=".48" stop-color="#5CA8FF"/>
+      <stop offset="1" stop-color="#AF6CFF"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="url(#bg)"/>
+  <rect x="2.75" y="2.75" width="58.5" height="58.5" rx="17.25" fill="none" stroke="#FFFFFF" stroke-opacity=".13" stroke-width="1.5"/>
+  <path d="M19 27v-5.5C19 16.8 23.2 14 32 14s13 2.8 13 7.5V27" fill="none" stroke="url(#mark)" stroke-width="6" stroke-linecap="round" filter="url(#glow)"/>
+  <rect x="14" y="24" width="36" height="28" rx="11" fill="#111722" stroke="url(#mark)" stroke-width="3"/>
+  <path d="M22 33h20M32 33v11" fill="none" stroke="url(#mark)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+</svg>
+

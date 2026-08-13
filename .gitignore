@@ -1,0 +1,16 @@
+node_modules/
+dist/
+release/
+release-build/
+release-build-011/
+release-installer/
+release-installer-011/
+release-installer-012/
+output/
+*.tsbuildinfo
+*.exe
+*.blockmap
+.DS_Store
+Thumbs.db
+.playwright-cli/
+document.images.length

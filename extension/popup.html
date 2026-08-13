@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Save to Toolbelt</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header>
+        <div class="brand"><img src="icon-48.png" alt="" /><div><strong>Toolbelt</strong><span>Save this website</span></div></div>
+        <div class="outbox" id="outbox" hidden><span id="outbox-count">0</span> waiting</div>
+      </header>
+
+      <section class="page-preview">
+        <div class="preview-glow"></div>
+        <div class="site-icon" id="site-icon-fallback">T</div>
+        <img class="site-favicon" id="site-favicon" alt="" hidden />
+        <div class="page-copy"><strong id="page-title">Reading this page…</strong><span id="page-domain"></span></div>
+        <div class="captured-pill">Current tab</div>
+      </section>
+
+      <form id="capture-form">
+        <label class="purpose-label">
+          <span>Use this when…</span>
+          <textarea id="purpose" rows="3" required maxlength="360" placeholder="I’m building a UI and need real design inspiration."></textarea>
+          <small>This sentence helps future-you find it.</small>
+        </label>
+        <div class="field-row">
+          <label><span>Category</span><select id="category"></select></label>
+          <label><span>Tags <em>optional</em></span><input id="tags" placeholder="ui, design" /></label>
+        </div>
+        <p class="status" id="status" hidden></p>
+        <button class="save-button" id="save-button" type="submit"><span>Save to Toolbelt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg></button>
+      </form>
+
+      <footer><span class="local-dot"></span> Private · Stored on your desktop</footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
+

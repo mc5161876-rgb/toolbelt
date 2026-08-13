@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Toolbelt — Save useful websites",
+  "version": "0.1.1",
+  "description": "Remember why a useful website matters and find it again later.",
+  "permissions": ["activeTab", "scripting", "storage", "alarms"],
+  "host_permissions": ["http://127.0.0.1:47321/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Save to Toolbelt",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  }
+}
