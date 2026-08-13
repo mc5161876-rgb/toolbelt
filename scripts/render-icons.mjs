@@ -23,7 +23,12 @@ const masked = await sharp(source)
 const render = (size, file) =>
   sharp(masked).resize(size, size).png().toFile(path.join(root, file));
 
+/* iOS home-screen icon: full-bleed opaque square (iOS applies its own corner
+   rounding; transparent corners would render as black nubs). */
+await sharp(source).resize(180, 180).png().toFile(path.join(root, "public", "apple-touch-icon.png"));
+
 await render(512, "assets/icon-512.png");
+await render(128, "public/toolbelt-icon-128.png");
 await render(512, "assets/toolbelt-mark-512.png");
 await render(256, "public/toolbelt-icon-256.png");
 await render(128, "public/toolbelt-mark-128.png");
