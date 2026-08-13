@@ -222,7 +222,7 @@ function App() {
       </button>
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="brand-lockup">
-          <img src="/toolbelt-mark.svg" alt="" />
+          <img src="/toolbelt-mark-128.png" alt="" />
           <div>
             <strong>Toolbelt</strong>
             <span>Useful sites, remembered</span>
