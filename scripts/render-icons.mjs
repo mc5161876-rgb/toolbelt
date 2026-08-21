@@ -43,4 +43,45 @@ const icoBuffers = await Promise.all(
 );
 await fs.writeFile(path.join(root, "assets", "icon.ico"), await pngToIco(icoBuffers));
 
+/* macOS .icns. Apple's icon grid insets the rounded body inside the canvas —
+   824/1024 with a 185px corner radius — so Toolbelt sits the same size in the
+   Dock as every stock app instead of overflowing its neighbours. iconutil is
+   macOS-only, so the Windows desktop skips this and keeps using icon.ico. */
+if (process.platform === "darwin") {
+  const CANVAS = 1024;
+  const BODY = 824;
+  const BODY_RADIUS = 185;
+  const inset = Math.round((CANVAS - BODY) / 2);
+
+  const bodyMask = Buffer.from(
+    `<svg width="${BODY}" height="${BODY}"><rect x="0" y="0" width="${BODY}" height="${BODY}" rx="${BODY_RADIUS}" ry="${BODY_RADIUS}" fill="#fff"/></svg>`
+  );
+  const body = await sharp(source)
+    .resize(BODY, BODY)
+    .composite([{ input: bodyMask, blend: "dest-in" }])
+    .png()
+    .toBuffer();
+  const macMaster = await sharp({
+    create: { width: CANVAS, height: CANVAS, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+  })
+    .composite([{ input: body, top: inset, left: inset }])
+    .png()
+    .toBuffer();
+
+  const iconset = path.join(root, "assets", "icon.iconset");
+  await fs.rm(iconset, { recursive: true, force: true });
+  await fs.mkdir(iconset, { recursive: true });
+  for (const size of [16, 32, 128, 256, 512]) {
+    await sharp(macMaster).resize(size, size).png().toFile(path.join(iconset, `icon_${size}x${size}.png`));
+    await sharp(macMaster).resize(size * 2, size * 2).png().toFile(path.join(iconset, `icon_${size}x${size}@2x.png`));
+  }
+  const { execFile } = await import("node:child_process");
+  const { promisify } = await import("node:util");
+  await promisify(execFile)("iconutil", ["-c", "icns", iconset, "-o", path.join(root, "assets", "icon.icns")]);
+  await fs.rm(iconset, { recursive: true, force: true });
+  console.log("Rendered assets/icon.icns (Apple 824/1024 grid).");
+} else {
+  console.log("Skipped assets/icon.icns (iconutil needs macOS).");
+}
+
 console.log("Rendered Toolbelt icon set from master art (masked, sizes:", [512, 256, 128, ...icoSizes].join("/"), "+ ico).");

@@ -13,6 +13,7 @@
     "build": "tsc -b && vite build",
     "check": "tsc -b --pretty false",
     "dist:win": "npm run build && electron-builder --win nsis",
+    "dist:mac": "npm run build && electron-builder --mac dmg",
     "start": "electron .",
     "icons:render": "node scripts/render-icons.mjs"
   },
@@ -41,10 +42,12 @@
     "directories": {
       "output": "release"
     },
+    "afterPack": "scripts/mac-adhoc-sign.mjs",
     "files": [
       "dist/**/*",
       "electron/**/*",
       "assets/icon.ico",
+      "assets/icon.icns",
       "assets/toolbelt-icon-master.png",
       "package.json"
     ],
@@ -58,6 +61,22 @@
           ]
         }
       ]
+    },
+    "mac": {
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.productivity",
+      "identity": null,
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "dmg": {
+      "title": "Toolbelt"
     },
     "nsis": {
       "oneClick": false,
